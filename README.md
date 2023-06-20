@@ -1,7 +1,7 @@
 # Build an agent rewards using Genesys Cloud Gamification External Metrics
 
-> View the full [Agent Rewards External Metrics Blueprint](https://github.com/GenesysCloudBlueprints/agent-rewards-external-metrics-blueprint "Goes to the Agent Rewards Blueprint") in the Genesys Cloud Developer Center.
-
-This Genesys Cloud Developer Blueprint provides instructions for building an agent rewards using Genesys Cloud Gamification External Metrics. The goal of this blueprint is to survey a customer after their interaction with an agent and, if their experience was positive, offer to the agent a reward of the customer’s choice.  This action empowers the customer to thank the agent in a tangible way, builds customer loyalty between the customer and the brand, and of course rewards great agents. You can deploy all the components used in this solution with the Terraform Genesys Cloud CX as Code provider.
+This Genesys Cloud Developer Blueprint describes how agent rewards can be built using Genesys Cloud Gamification External Metrics. After a customer interacts with an agent, this blueprint surveys them and gives them a reward of their choice if the interaction was positive. This action allows the customer to thank the agent in a tangible way. Customer loyalty is built between the brand and the customer, and talent is rewarded. By using Terraform Genesys Cloud CX as Code provider, all the components involved in this solution can be deployed.
 
 ![Agent Rewards](blueprint/images/overview.png "Agent Rewards")
+
+ View the full [Agent Rewards External Metrics Blueprint](https://github.com/GenesysCloudBlueprints/agent-rewards-external-metrics-blueprint "Goes to the Agent Rewards Blueprint") in the Genesys Cloud Developer Center.
