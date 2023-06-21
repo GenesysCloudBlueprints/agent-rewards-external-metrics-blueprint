@@ -6,31 +6,31 @@ icon: blueprint
 image: images/overview.png
 category: 5
 summary: |
-  This Genesys Cloud Developer Blueprint provides instructions for building an agent rewards using Genesys Cloud Gamification External Metrics. The goal of this blueprint is to survey a customer after their interaction with an agent and, if their experience was positive, offer to the agent a reward of the customer’s choice.  This action empowers the customer to thank the agent in a tangible way, builds customer loyalty between the customer and the brand, and of course rewards great agents. You can deploy all the components used in this solution with the Terraform Genesys Cloud CX as Code provider.
+  This Genesys Cloud Developer Blueprint describes how agent rewards can be built using Genesys Cloud Gamification External Metrics. After a customer interacts with an agent, this blueprint surveys them and gives them a reward of their choice if the interaction was positive. This action allows the customer to thank the agent in a tangible way. Customer loyalty is built between the brand and the customer, and talent is rewarded. By using Terraform Genesys Cloud CX as Code provider, all the components involved in this solution can be deployed.
 ---
 :::{"alert":"primary","title":"About Genesys Cloud Blueprints","autoCollapse":false} 
 Genesys Cloud blueprints were built to help you jump-start building an application or integrating with a third-party partner. 
 Blueprints are meant to outline how to build and deploy your solutions, not a production-ready turn-key solution.
  
-For more details on Genesys Cloud blueprint support and practices 
-please see our Genesys Cloud blueprint [FAQ](https://developer.genesys.cloud/blueprints/faq)sheet.
+For more details on Genesys Cloud blueprint support and practices, 
+see our Genesys Cloud blueprint [FAQ](https://developer.genesys.cloud/blueprints/faq "Opens the Blueprint FAQ") sheet.
 :::
 
-Welcome to the wonderful world of employee rewards.  This blueprint is a great opportunity for you to learn about how Genesys Cloud Gamification External Metrics (GCGEM) can be used in conjunction with a simple voice survey to enable your customers to reward your agents.
+Greetings and welcome to the wonderful world of employee rewards. This blueprint offers you the opportunity to learn how Genesys Cloud Gamification External Metrics (GCGEM) can be used together with a simple voice survey to reward your agents based on customer satisfaction.
 
-The goal of this blueprint is to survey a customer after their interaction with an agent and, if their experience was positive, offer to the agent a reward of the customer’s choice.
+The blueprint surveys a customer after interaction with an agent. The customer can choose a reward for the agent if their experience was positive.
 
-To invoke this experience, an agent uses their desktop to transfer the voice interaction to an Architect Inbound Call Flow which interacts with the customer and then updates a Genesys Cloud Data Table that keeps track of the agent’s cumulative reward score. The reward score is written to a Gamification External Metric that is displayed on the agent’s Scorecard.
+An agent invokes this experience by using their desktop to transfer the voice interaction to an Architect's Inbound Call flow. This call flow interacts with the customer and updates a Genesys Cloud Data Table that tracks the agent’s cumulative reward score. The reward score appears on the agent’s Scorecard as a Gamification External Metric.
 
-This Blueprint provides all the components to accomplish a simple agent rewards solution. It is important to note that rewards presented to the customer are converted into a point system for the agent. There are many reasons for this abstraction, one of which is that rewarding a busy agent with hundreds of cups of coffee might not turn out to be a good thing. For this reason, converting the rewards and associated reward points into actual benefits for the agent is an exercise left to the reader.
+This blueprint contains all the components for creating a simple rewards solution for agents. The rewards presented to customers are converted into a point system for the agent. A busy agent might not appreciate being rewarded with a hundred cups of coffee for various reasons. Therefore, the reader must convert the rewards and associated reward points into actual benefits for the agent.
 
-This Blueprint is going to take you through the steps and definitions to configure your Genesys Cloud organization.
+The following blueprint guides you through configuring your Genesys Cloud organization.
 
 ![Agent Rewards](images/overview.png "Agent Rewards")
 
 ## Scenario
 
-An organization wants to empower the customer to thank the agent in a tangible way, builds customer loyalty between the customer and the brand, and of course rewards great agents.
+An organization wants its customers to express their appreciation for their service. As a result, customer loyalty is built between the brand and the customer, and talented agents are rewarded.
 
 1. **Ask the customer if their experience with the agent was positive**
 
@@ -41,8 +41,8 @@ An organization wants to empower the customer to thank the agent in a tangible w
 ## Solution components
 
 * **Genesys Cloud CX** - A suite of Genesys Cloud services for enterprise-grade communications, collaboration, and contact center management. In this solution, you use an Architect inbound message flow, a Genesys Cloud integration, a Genesys Cloud queue, web messaging configuration, and web messaging deployment.
-* **Architect flows** - A flow in Architect, a drag and drop web-based design tool, dictates how Genesys Cloud handles inbound or outbound interactions.  In this solution, an inbound call flow provides the routing layer that gets the customer to the right queue.
-* **Genesys Cloud Gamification External Metrics** - Performance management and Gamification is focused on defining performance goals and expectations, and then measuring against these goals to see how individuals and teams are performing. This feature allows you to import external metrics and make them an integral part of an employee’s performance scorecard. As a result, supervisors receive a single and complete view of agent performance on all key measures that your organization cares about.
+* **Architect flows** - A flow in Architect, a drag and drop web-based design tool, dictates how Genesys Cloud handles inbound or outbound interactions. In this solution, an inbound call flow provides the routing layer that gets the customer to the right queue.
+* **Genesys Cloud Gamification External Metrics** - A performance management and Gamification process involves defining performance goals and expectations and measuring performance against these goals. Using this feature, you can integrate external metrics into an employee performance scorecards. It provides supervisors with a comprehensive view of agent performance across all key metrics relevant to your organization.
 * **Data Action** - Provides the integration point to invoke a third-party REST web service or AWS lambda.
 * **CX as Code** - A Genesys Cloud Terraform provider that provides an interface for declaring core Genesys Cloud objects.
 
@@ -61,27 +61,27 @@ An organization wants to empower the customer to thank the agent in a tangible w
 
 ### Development tools running in your local environment
 
-* Terraform (the latest binary). For more information, see [Download Terraform](https://www.terraform.io/downloads.html "Goes to the Download Terraform page") on the Terraform website.
+* Terraform (the latest binary). For more information, see [Install Terraform](https://www.terraform.io/downloads.html "Goes to the Install Terraform page") on the Terraform website.
 
 ## Implementation steps
 
 ### Download the repository containing the project files
 
-1. Clone the [agent-rewards-external-metrics-blueprint repository](https://github.com/GenesysCloudBlueprints/agent-rewards-external-metrics-blueprint "Opens the agent-rewards-external-metrics-blueprint repository in GitHub").
+1. Clone the [agent-rewards-external-metrics-blueprint repository](https://github.com/GenesysCloudBlueprints/agent-rewards-external-metrics-blueprint "Goes to the agent-rewards-external-metrics-blueprint repository") in GitHub.
 
 ### Set up Genesys Cloud
 
-1. To run this project using the Terraform provider, open a Terminal window and set the following environment variables:
+1. You need to set the following environment variables in a terminal window before you can run this project using the Terraform provider:
 
  * `GENESYSCLOUD_OAUTHCLIENT_ID` - This variable is the Genesys Cloud client credential grant Id that CX as Code executes against. 
  * `GENESYSCLOUD_OAUTHCLIENT_SECRET` - This variable is the Genesys Cloud client credential secret that CX as Code executes against. 
  * `GENESYSCLOUD_REGION` - This variable is the Genesys Cloud region in your organization.
 
-2. Run Terraform in the folder where you set the environment variables. 
+2. Set the environment variables in the folder where Terraform is running. 
 
 ### Configure your Terraform build
 
-In the **blueprint/terraform/dev.auto.tfvars** file, set the following values, which are specific to your Genesys Cloud organization:
+Set the following values in the **blueprint/terraform/dev.auto.tfvars** file, specific to your Genesys Cloud organization:
 
 * `client_id` - The value of your OAuth Client ID using Client Credentials to be used for the data action integration.
 * `client_secret`- The value of your OAuth Client secret using Client Credentials to be used for the data action integration.
@@ -95,25 +95,25 @@ client_secret   = "your-client-secret"
 
 ### Run Terraform
 
-You are now ready to run this blueprint solution for your organization. 
+The blueprint solution is now ready for your organization to use. 
 
-1. Change to the **/terraform** folder and issue these commands:
+1. Change to the **/terraform** folder and issue the following commands:
 
 * `terraform init` - This command initializes a working directory containing Terraform configuration files.
   
-* `terraform plan` - This command executes a trial run against your Genesys Cloud organization and shows you a list of all the Genesys Cloud resources it creates. Review this list and make sure that you are comfortable with the plan before continuing to the second step.
+* `terraform plan` - This command executes a trial run against your Genesys Cloud organization and displays a list of all the Genesys Cloud resources created. Review this list and ensure that you are comfortable with the plan before moving on to the next step.
 
 * `terraform apply --auto-approve` - This command creates and deploys the necessary objects in your Genesys Cloud account. The --auto-approve flag completes the required approval step before the command creates the objects.
 
-After the `terraform apply --auto-approve` command completes, you should see the output of the entire run along with the number of objects successfully created by Terraform. Keep these points in mind:
+Once the `terraform apply --auto-approve` command has completed, you should see the output of the entire run along with the number of objects that Terraform successfully created. The following points should be remembered:
 
-*  This project assumes you are running using a local Terraform backing state, which means that the `tfstate` files are created in the same folder where you run the project. Terraform does not recommend using local Terraform backing state files unless you run from a desktop and are comfortable with the deleted files.
+* In this project, assume you are running using a local Terraform backing state. In this case, the `tfstate` files are created in the same folder where the project is running. It is not recommended to use local Terraform backing state files unless you are running from a desktop or are comfortable deleting files.
 
-* As long as you keep your local Terraform backing state projects, you can tear down this blueprint solution by changing to the `docs/terraform` folder and issuing a `terraform destroy --auto-approve` command. This command destroys all objects currently managed by the local Terraform backing state.
+* As long as you keep your local Terraform backing state projects, you can tear down this blueprint solution by changing to the `docs/terraform` folder. You can also issue a `terraform destroy --auto-approve` command. All objects currently managed by the local Terraform backing state are destroyed by this command.
 
 ### Gamification External Metric
 
-1. Get the External Metric ID by going to **Admin** > **Performance & Engagement** > **External Metric Definitions**
+1. Get the External Metric ID by navigating to **Admin** > **Performance & Engagement** > **External Metric Definitions**
    ![External Metric](images/external-metric.png "External Metric")
 2. Include the External Metric in the Gamification Profile in **Admin** > **Performance & Engagement** > **Gamification Profiles**. You can set the parameters for your points to show Targets, Good Performance, and Out of Bounds.
    ![Gamification Profile](images/gamification-profile.png "Gamification Profile")
@@ -123,30 +123,30 @@ After the `terraform apply --auto-approve` command completes, you should see the
 1. In Genesys Cloud Admin, assign a number to the created inbound call flow.
    ![Call Routing](images/call-routing.png "Call Routing")
 
-2. As a customer, make a call to a number assigned to an assigned agent.
-3. As an agent, go On Queue and answer the incoming call.
-4. Make a Blind Transfer to the number assigned to the Agent Rewards call flow.
+2. As a customer, when you call a number assigned to an agent, the agent will assist you.
+3. As an agent, answer the incoming queue call.
+4. You should make a Blind Transfer to the number assigned to the Agent Rewards call flow.
    ![Blind Transfer](images/blind-transfer.png "Blind Transfer")
-5. The customer is greeted with an audio prompt saying *"Thank you for participating in a review of your call. Given your experience, how likely are you to recommend our company to your family or friends.  For extremely likely, press 1.  For very likely, press 2.  For moderately likely, press 3.  For slightly likely, press 4.  And for not at all likely, press 5."*
-6. If the customer pressed 1, 2 or 3, the audio prompt will say *"Would you like to reward your agent for their help on the call.  For yes, press 1.  For no, press 2."*
-7. If the customer wants to reward the agent, the audio proompt will ask from a list on what to reward the agent by saying *"Which reward would you like us to give the agent.  This is at no cost to you.  For a high five, press 1.  For a soft drink, press 2.  For a delivered snack, press 3.  Or for a specialty coffee, press 4."*
-8. Which ever the customer chooses, the audio prompt will confirm the reward will be given to the agent and the agent will earn a score accordingly:
+5. The customer is greeted with an audio prompt that says *"Thank you for participating in a review of your call." Given your experience, how likely are you to recommend our company to your family or friends? For extremely likely, press 1. For very likely, press 2. For moderately likely, press 3. For slightly likely, press 4. And for not at all likely, press 5."*
+6. If the customer presses 1, 2 or 3, the audio prompt asks *"Would you like to reward your agent for their help on the call?" For yes, press 1. For no, press 2."*
+7. If the customer wants to reward the agent, the audio prompt asks which reward they would like us to give the agent. It asks *"Which reward would you like us to give the agent?" This is at no cost to you. For a high five, press 1. For a soft drink, press 2. For a delivered snack, press 3. Or for a specialty coffee, press 4."*
+8. The audio prompt confirms whether or not the customer reward is given to the agent, followed by a score:
    * High Five - 10 points
    * Soft drink - 20 points
    * Snack - 30 points
    * Coffee - 40 points
-9. The audio prompt will now say *"Thank you for the review.  Goodbye."* and will end the voice interaction.
-10. The data table will be updated to add the agent's new score.
+9. The audio prompt now says *"Thank you for the review. Goodbye."* and ends the voice interaction.
+10. The data table is updated to include the agent's new score.
     ![Data Table](images/data-table.png "Data Table")
 
   :::primary
-  **Tip**: The agent ID should already be existing in the data table to earn points.
+  **Tip**: To earn points, the agent ID must already be present in the data table.
   :::
-11. The agent's scorecard will reflect the points earned from the Agent Rewards under **Performance** > **Scorecard**
+11. Agent Rewards points are reflected on the agent's scorecard under **Performance** > **Scorecard**
     ![Scoreboard](images/scoreboard.png "Scoreboard")
 
 
 ## Additional resources
 
-* [Gamification](https://www.genesys.com/capabilities/gamification-call-center-employees "Opens the Gamification page")
-* [Configure external metrics for performance scorecards](https://help.mypurecloud.com/articles/configure-external-metrics-for-performance-scorecards/ "Opens the Configure external metrics for performance scorecards page")
+* [Gamification](https://www.genesys.com/capabilities/gamification-call-center-employees "Goes to the Genesys Pricing page") on the Genesys Pricing website.
+* [Configure external metrics for performance scorecards](https://help.mypurecloud.com/articles/configure-external-metrics-for-performance-scorecards/ "Opens the Configure external metrics for performance scorecards page") in the Genesys Cloud Resource Center.
